@@ -160,6 +160,74 @@ Begin
 End;
 
 
+Procedure BotHitCheck;
+Begin
+  If botattack[x,y]>1 Then skip := 1
+  Else
+    Begin
+      If player[x,y]=2 Then
+        Begin
+          hit := 1;
+          botattack[x,y] := 3;
+          player[x,y] := 3;
+          skip := 0;
+          DrawBoard(1);
+          writeln;
+          writeln('Bot hit');
+          ch := readkey;
+        End;
+      If player[x,y]=1 Then
+        Begin
+          miss := 1;
+          botattack[x,y] := 4;
+          skip := 0;
+          DrawBoard(1);
+          writeln;
+          write('Bot miss');
+          ch := readkey;
+        End;
+    End;
+End;
+
+
+Procedure Smartbot;
+
+//this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
+Begin
+  //resetting variables
+  Miss := 0;
+  Hit := 0;
+  Skip := 1;
+  For b:=0 To 9000 Do
+    Begin
+      For j:=0 To 9 Do
+        For i:=0 To 9 Do
+          // 1 = sea 2 = ship 3 = hit 4 = miss
+          If player[i,j]=2 Then
+            If player[i,(j-1)]=2 Then BotHitcheck
+          Else If player[i,(j+1)]=2 Then BotHitcheck
+          Else If player[(i-1),j]=2 Then BotHitcheck
+          Else If player[(i+1),j]=2 Then BotHitcheck;
+      If skip = 1 Then
+        Begin
+          If miss = 0 Then
+            Begin
+              If hit = 0 Then
+                Begin
+                  x := Random(10);
+                  y := Random(10);
+                  // 1 = sea 2 = ship 3 = hit 4 = miss
+                  //check to see if bot has already attacked that square
+                  BotHitcheck;
+                End;
+            End;
+        End;
+    End;
+End;
+
+
+
+
 Procedure AddBoat(S : integer);
 Begin
 
@@ -178,6 +246,7 @@ Begin
 
 
 
+
             'Please enter the X coordinate for your shit (use the letter idiot)'
         );
         readln(Letter);
@@ -185,6 +254,7 @@ Begin
         If Error = 0 Then
           Begin
             writeln (
+
 
 
 
@@ -391,9 +461,11 @@ Begin
 
 
 
+
       '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
   );
   Writeln(
+
 
 
 
@@ -407,6 +479,7 @@ Begin
 
 
 
+
       ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
   );
   Writeln(
@@ -415,9 +488,11 @@ Begin
 
 
 
+
       ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
   );
   Writeln(
+
 
 
 
@@ -459,11 +534,6 @@ Begin
   Writeln;
   Writeln;
   writeln (
-
-
-
-
-
 'Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. press any key to continue'
   );
   Writeln;
@@ -498,7 +568,7 @@ Begin
         Begin
           PlayerTurn;
           CheckWin;
-          BotTurn;
+          Smartbot;
           checkwin;
         End;
     End;
