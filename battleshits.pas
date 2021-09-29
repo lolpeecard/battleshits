@@ -71,13 +71,13 @@ Begin
             // 1 = sea 2 = ship 3 = hit 4 = miss
             If playerattack[i,j]=1 Then write('|   ')
             Else If playerattack[i,j]=2 Then write('| @ ')
-            Else If playerattack[i,j]=3 Then 
-            Begin
-              write('| ');
-              TextColor(Brown);
-              Write('X ');
-              TextColor(White);
-            End
+            Else If playerattack[i,j]=3 Then
+                   Begin
+                     write('| ');
+                     TextColor(Brown);
+                     Write('X ');
+                     TextColor(White);
+                   End
             Else If playerattack[i,j]=4 Then write('| O ') ;
           write ('|');
           writeln;
@@ -138,7 +138,9 @@ Begin
                           player[x,y] := 3;
                           skip := 0;
                           DrawBoard(1);
+                          writeln;
                           writeln('Bot hit');
+                          ch := readkey;
                         End;
                       If player[x,y]=1 Then
                         Begin
@@ -146,7 +148,9 @@ Begin
                           botattack[x,y] := 4;
                           skip := 0;
                           DrawBoard(1);
+                          writeln;
                           write('Bot miss');
+                          ch := readkey;
                         End;
                     End;
                 End;
@@ -173,6 +177,7 @@ Begin
 
 
 
+
             'Please enter the X coordinate for your shit (use the letter idiot)'
         );
         readln(Letter);
@@ -180,6 +185,7 @@ Begin
         If Error = 0 Then
           Begin
             writeln (
+
 
 
 
@@ -298,7 +304,7 @@ End;
 
 Procedure PlayerTurn;
 Begin
-  
+
   Miss := 0;
   Hit := 0;
   Skip := 1;
@@ -330,14 +336,18 @@ Begin
                               playerattack[x,y] := 3;
                               bot[x,y] := 3;
                               skip := 0;
+                              writeln;
                               writeln('You hit');
+                              ch := readkey;
                             End;
                           If bot[x,y]=1 Then
                             Begin
                               miss := 1;
                               playerattack[x,y] := 4;
                               skip := 0;
+                              writeln;
                               write('You miss');
+                              ch := readkey;
                             End;
                         End;
                     End;
@@ -380,9 +390,11 @@ Begin
 
 
 
+
       '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
   );
   Writeln(
+
 
 
 
@@ -394,6 +406,7 @@ Begin
 
 
 
+
       ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
   );
   Writeln(
@@ -401,9 +414,11 @@ Begin
 
 
 
+
       ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
   );
   Writeln(
+
 
 
 
@@ -444,6 +459,7 @@ Begin
   Writeln;
   Writeln;
   writeln (
+
 
 
 
