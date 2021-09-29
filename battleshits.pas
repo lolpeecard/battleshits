@@ -69,15 +69,16 @@ Begin
           write(' ');
           For i:=0 To 9 Do
             // 1 = sea 2 = ship 3 = hit 4 = miss
-            If playerattack[i,j]=1 Then write('|   ');
-          If playerattack[i,j]=3 Then
+            If playerattack[i,j]=1 Then write('|   ')
+            Else If playerattack[i,j]=2 Then write('| @ ')
+            Else If playerattack[i,j]=3 Then 
             Begin
               write('| ');
               TextColor(Brown);
               Write('X ');
               TextColor(White);
-            End;
-          If playerattack[i,j]=4 Then write('| O ');
+            End
+            Else If playerattack[i,j]=4 Then write('| O ') ;
           write ('|');
           writeln;
         End;
@@ -89,10 +90,11 @@ Procedure Stupid;
 Begin
   ClrScr;
   writeln;
-  Writeln('you are stupid pick something that works');
+  Writeln('you are stupid pick shit that works');
   writeln;
   writeln('press any key to continue');
   Error := 1;
+  ch := readkey;
 End;
 
 Procedure XLine;
@@ -156,69 +158,72 @@ End;
 
 Procedure AddBoat(S : integer);
 Begin
-  ClrScr;
+
   Error := 1;
   For k:= 0 To 9 Do
-    Begin
-      If Error = 1 Then
-        Begin
-          DrawBoard(1);
-          writeln;
-          writeln ('Place dis damn shit, shits as big as ', s);
-          writeln (
+    ClrScr;
+  Begin
+    If Error = 1 Then
+      Begin
+        DrawBoard(1);
+        writeln;
+        writeln ('Place dis damn shit, shits as big as ', s);
+        writeln (
+
 
 
 
             'Please enter the X coordinate for your shit (use the letter idiot)'
-          );
-          readln(Letter);
-          Xline;
-          If Error = 0 Then
-            Begin
-              writeln (
+        );
+        readln(Letter);
+        Xline;
+        If Error = 0 Then
+          Begin
+            writeln (
+
 
 
 
             'Please enter the Y coordinate for your shit (use the number idiot)'
-              );
-              readln(y);
-              writeln (
-                       'Which way this shit go? D for Down, R for right)'
-              );
-              readln(Direction);
-              If Direction='D' Then Direction := 'd';
-              If Direction='R' Then direction := 'r';
-              If Direction='r' Then
-                If x + s < 9 Then
-                  Begin
-                    For L:= 0 To (S) Do
-                      Begin
-                        //reset error
-                        Error := 0;
-                        x := x + L;
-                        If player[x,y] = 2 Then
-                          Stupid;
+            );
+            readln(y);
+            writeln (
+                     'Which way this shit go? D for Down, R for right)'
+            );
+            readln(Direction);
+            If Direction='D' Then Direction := 'd';
+            If Direction='R' Then direction := 'r';
+            If Direction='r' Then
+              If x + s < 9 Then
+                Begin
+                  For L:= 0 To (S) Do
+                    Begin
+                      //reset error
+                      Error := 0;
+                      x := x + L;
+                      If player[x,y] = 2 Then Stupid
+                      Else player[x,y] := 2;
+                      x := x - L;
+                    End;
+                End;
+            If Direction='d' Then
+              If y + s < 9 Then
+                Begin
+                  For L:= 0 To (S) Do
+                    Begin
+                      //reset error
+                      Error := 0;
+                      y := y + L;
+                      If player[x,y] = 2 Then
+                        Stupid
+                      Else
                         player[x,y] := 2;
-                        x := x - L;
-                      End;
-                  End;
-              If Direction='d' Then
-                If y + s < 9 Then
-                  Begin
-                    For L:= 0 To (S) Do
-                      Begin
-                        //reset error
-                        Error := 0;
-                        y := y + L;
-                        If player[x,y] = 2 Then
-                          Stupid;
-                        player[x,y] := 2;
-                        y := y - L;
-                      End;
-                  End;
-            End;
-        End;
-    End;
+                      y := y - L;
+                    End;
+                End;
+          End;
+      End;
+  End;
   Error := 1;
 End;
 
@@ -293,7 +298,7 @@ End;
 
 Procedure PlayerTurn;
 Begin
-  ClrScr;
+  
   Miss := 0;
   Hit := 0;
   Skip := 1;
@@ -374,9 +379,11 @@ Begin
 
 
 
+
       '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
   );
   Writeln(
+
 
 
 
@@ -386,15 +393,18 @@ Begin
 
 
 
+
       ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
   );
   Writeln(
 
 
 
+
       ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
   );
   Writeln(
+
 
 
 
@@ -434,6 +444,7 @@ Begin
   Writeln;
   Writeln;
   writeln (
+
 
 
 
