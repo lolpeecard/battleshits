@@ -19,9 +19,7 @@ Var
 Procedure AnyKey;
 Begin
   writeln;
-  writeln;
   writeln ('press any key to continue');
-  Writeln;
   ch := readkey;
 End;
 
@@ -492,7 +490,8 @@ Procedure DankIntro;
 Begin
   ClrScr;
   TextColor(Brown);
-  Writeln(' __________         __    __  .__                .__    .__  __');
+  writeln;
+  Writeln('__________         __    __  .__                .__    .__  __');
   Writeln('\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______');
   Writeln(' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/');
   Writeln(' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ ');
