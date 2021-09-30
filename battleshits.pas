@@ -4,16 +4,78 @@ Program BattleShits;
 Uses Crt;
 
 Var 
+
   player: array [0..10, 0..10] Of integer;
   playerattack: array [0..10, 0..10] Of integer;
   bot: array [0..10, 0..10] Of integer;
   botattack: array [0..10, 0..10] Of integer;
+  shitimation: array [0..10, 0..10] Of integer;
   b,i,j,x,y,k,l,z: integer;
   Letter,Direction: char;
   hit, miss, skip, win: integer;
   Error: integer;
   ch: char;
 
+Procedure ShitStory;
+Begin
+  //8|>-<op
+  For i:=0 To 10 Do
+    For j:=0 To 10 Do
+      shitimation[i,j] := 1;
+
+  For j:=0 To 6 Do
+    For i:=10 Downto 0 Do
+
+      Begin
+
+        clrscr;
+        Writeln('You did not vote so the neighbor is shitting your yard!');
+        TextBackground(Green);
+        shitimation[i,j] := 2;
+        writeln(' ___________________________________________________');
+        For k:=0 To 10 Do
+          Begin
+            write ('| ');
+            For l:=0 To 6 Do
+              Begin
+                //write('       ');
+                // 1 = sea 2 = ship 3 = hit 4 = miss
+                If shitimation[k,l]=1 Then write('       ')
+                Else If shitimation[k,l]=2 Then
+                       Begin
+                         TextColor(Black);
+                         write('8|');
+                         TextColor(yellow);
+                         write('>-<o');
+                         TextColor(Blue);
+                         write('p');
+                         TextColor(White);
+                       End
+                Else If shitimation[k,l]=3 Then
+                       Begin
+                         TextColor(Brown);
+                         write('@      ');
+                         TextColor(white);
+                       End;
+              End;
+            writeln (' |');
+          End;
+        writeln('|___________________________________________________|');
+        x := Random(2);
+        If x=1 Then shitimation[i,j] := 3
+        Else shitimation[i,j] := 1;
+        delay(500);
+
+      End;
+  TextBackground(Black);
+  writeln;
+  writeln ('time to shit them back!');
+  Writeln;
+  writeln;
+  writeln ('press any key to continue');
+  Writeln;
+  ch := readkey;
+End;
 
 Procedure Blankstart;
 Begin
@@ -192,6 +254,9 @@ End;
 
 Procedure Smartbot;
 
+
+
+
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
 Begin
   //resetting variables
@@ -203,6 +268,7 @@ Begin
       For j:=0 To 9 Do
         For i:=0 To 9 Do
           // 1 = sea 2 = ship 3 = hit 4 = miss
+          //this may break by looking for negative in the array
           If player[i,j]=2 Then
             If player[i,(j-1)]=2 Then BotHitcheck
           Else If player[i,(j+1)]=2 Then BotHitcheck
@@ -247,6 +313,9 @@ Begin
 
 
 
+
+
+
             'Please enter the X coordinate for your shit (use the letter idiot)'
         );
         readln(Letter);
@@ -254,6 +323,9 @@ Begin
         If Error = 0 Then
           Begin
             writeln (
+
+
+
 
 
 
@@ -462,9 +534,15 @@ Begin
 
 
 
+
+
+
       '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
   );
   Writeln(
+
+
+
 
 
 
@@ -480,6 +558,9 @@ Begin
 
 
 
+
+
+
       ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
   );
   Writeln(
@@ -489,9 +570,15 @@ Begin
 
 
 
+
+
+
       ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
   );
   Writeln(
+
+
+
 
 
 
@@ -534,8 +621,11 @@ Begin
   Writeln;
   Writeln;
   writeln (
-'Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. press any key to continue'
+
+'Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. '
   );
+  writeln;
+  writeln ('  press any key to continue');
   Writeln;
   ch := readkey;
 End;
@@ -552,6 +642,7 @@ Begin
   BotBoat(3);
   BotBoat(2);
   DankIntro;
+  ShitStory;
   writeln;
   writeln ('First things first, we have to set up your board, dumbass');
   writeln;
