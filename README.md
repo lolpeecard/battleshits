@@ -1,5 +1,5 @@
 # battleshits
-out battleshitting clint
+out battleshitting u
 
                                   _______
                                 /        \___
