@@ -1,6 +1,9 @@
 
 Program battleshits;
 
+//include my resources fool
+{$R sounds.rc}
+
 Uses 
 Crt,
 MMsystem;
@@ -536,7 +539,7 @@ End;
 
 Procedure DankerIntro;
 Begin
-  sndPlaySound('intro.wav', snd_Async or snd_NoDefault);
+  sndPlaySound(PChar('intro'), snd_Async or snd_NoDefault);
   For i:=0 To 33 Do
     Begin
       clrscr;
