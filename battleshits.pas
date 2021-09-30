@@ -1,10 +1,9 @@
 
-Program BattleShits;
+Program battleshits;
 
 Uses Crt;
 
 Var 
-
   player: array [0..10, 0..10] Of integer;
   playerattack: array [0..10, 0..10] Of integer;
   bot: array [0..10, 0..10] Of integer;
@@ -247,8 +246,6 @@ End;
 
 
 Procedure Smartbot;
-
-
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
 Begin
   //resetting variables
@@ -283,8 +280,50 @@ Begin
     End;
 End;
 
-
-
+Procedure BotBoat(S : integer);
+Begin
+  Error := 1;
+  For k:= 0 To 9001 Do
+    Begin
+      x := Random(10);
+      y := Random(10);
+      //z is gonna decide right or left
+      z := random(2);
+      If Error = 1 Then
+        Begin
+          If z=0 Then
+            If x + s < 9 Then
+              Begin
+                For L:= 0 To (S) Do
+                  Begin
+                    //reset error
+                    Error := 0;
+                    x := x + L;
+                    If bot[x,y] = 2 Then
+                      Begin
+                        error := 1;
+                      End;
+                    bot[x,y] := 2;
+                    x := x - L;
+                  End;
+              End;
+          If z=1 Then
+            If y + s < 9 Then
+              Begin
+                For L:= 0 To (S) Do
+                  Begin
+                    //reset error
+                    Error := 0;
+                    y := y + L;
+                    If bot[x,y] = 2 Then
+                      error := 1;
+                    bot[x,y] := 2;
+                    y := y - L;
+                  End;
+              End;
+        End;
+    End;
+End;
 
 Procedure AddBoat(S : integer);
 Begin
@@ -340,52 +379,7 @@ Begin
       End;
   End;
   Error := 1;
-End;
-
-
-Procedure BotBoat(S : integer);
-Begin
-  Error := 1;
-  For k:= 0 To 9001 Do
-    Begin
-      x := Random(10);
-      y := Random(10);
-      //z is gonna decide right or left
-      z := random(2);
-      If Error = 1 Then
-        Begin
-          If z=0 Then
-            If x + s < 9 Then
-              Begin
-                For L:= 0 To (S) Do
-                  Begin
-                    //reset error
-                    Error := 0;
-                    x := x + L;
-                    If bot[x,y] = 2 Then
-                      Begin
-                        error := 1;
-                      End;
-                    bot[x,y] := 2;
-                    x := x - L;
-                  End;
-              End;
-          If z=1 Then
-            If y + s < 9 Then
-              Begin
-                For L:= 0 To (S) Do
-                  Begin
-                    //reset error
-                    Error := 0;
-                    y := y + L;
-                    If bot[x,y] = 2 Then
-                      error := 1;
-                    bot[x,y] := 2;
-                    y := y - L;
-                  End;
-              End;
-        End;
-    End;
+  BotBoat(s);
 End;
 
 Procedure Checkwin;
@@ -537,19 +531,118 @@ Begin
   AnyKey;
 End;
 
+Procedure DankerIntro;
+Begin
+  For i:=0 To 33 Do
+    Begin
+      clrscr;
+      TextColor(Brown);
+      writeln;
+      Writeln('__________         __    __  .__                .__    .__  __');
+      Writeln('\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______');
+      Writeln(' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/');
+      Writeln(' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ ');
+      Writeln(' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >');
+      Writeln('        \/      \/                     \/     \/     \/              \/ ');           
+      TextColor(Blue);
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                       _______');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                      /        \___');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                     /_________|');
+      For j:=0 To i Do
+        write(' ');
+      TextColor(Yellow);
+      Writeln('                    /         - |');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                   |____________|');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                  /        /    /');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                 /        /    /');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('                /        /    /');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('               /        /      -----|');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('              /        |____________|');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('       ______/          |');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('      (                 |             ');
+      For j:=0 To i Do
+        write(' ');
+      Writeln('      (_______       ___|');
+      For j:=0 To i Do
+        write(' ');
+      TextColor(Brown);
+      Write('     @');
+      TextColor(Yellow);
+      writeln('        |      /  ');
+      For j:=0 To i Do
+        write(' ');
+      TextColor(Brown);
+      Write('    @');
+
+      TextColor(Yellow);
+      writeln('      ___/     /__');
+      For j:=0 To i Do
+        write(' ');
+      TextColor(Brown);
+      Write('   @');
+      TextColor(Yellow);
+      writeln('     O/  /     /  /O');
+      For j:=0 To i Do
+        write(' ');
+      TextColor(Brown);
+      Write('  @');
+      TextColor(Yellow);
+      writeln('      /  |______| /');
+      TextColor(Brown);
+      For j:=0 To i Do
+        write(' ');
+      Write(' @');
+      TextColor(Yellow);
+      writeln('      /           /');
+      TextColor(Brown);
+      For j:=0 To i Do
+        Begin
+          TextColor(Brown);
+          write('@');
+        End;
+      Write('@');
+      TextColor(Yellow);
+      writeln('     O/___________/O');
+      TextColor(White);
+      delay(20);
+    End;
+  TextColor(White);
+  Writeln;
+  Writeln;
+  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. ');
+  AnyKey;
+End;
+
 Begin
   Blankstart;
-  BotBoat(5);
-  BotBoat(4);
-  BotBoat(3);
-  BotBoat(3);
-  BotBoat(2);
-  DankIntro;
+  DankerIntro;
   ShitStory;
   writeln;
   writeln ('First things first, we have to set up your board, dumbass');
   writeln;
-  //Add all the players boats
+  //Add all the player shits
   Addboat(5);
   Addboat(4);
   Addboat(3);
