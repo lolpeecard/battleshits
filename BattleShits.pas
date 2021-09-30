@@ -168,7 +168,7 @@ Begin
   If (X > -1) And ( X < 10) Then Error := 0;
 End;
 
-Procedure BotTurn;
+Procedure Oldbot;
 //at first this bot is just gonna randomly attack, i may make it smarter later
 Begin
   //resetting variables
