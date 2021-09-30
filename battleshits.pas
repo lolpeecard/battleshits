@@ -16,18 +16,24 @@ Var
   Error: integer;
   ch: char;
 
+Procedure AnyKey;
+Begin
+  writeln;
+  writeln;
+  writeln ('press any key to continue');
+  Writeln;
+  ch := readkey;
+End;
+
 Procedure ShitStory;
 Begin
   //8|>-<op
   For i:=0 To 10 Do
     For j:=0 To 10 Do
       shitimation[i,j] := 1;
-
   For j:=0 To 6 Do
     For i:=10 Downto 0 Do
-
       Begin
-
         clrscr;
         Writeln('You did not vote so the neighbor is shitting your yard!');
         TextBackground(Green);
@@ -70,11 +76,7 @@ Begin
   TextBackground(Black);
   writeln;
   writeln ('time to shit them back!');
-  Writeln;
-  writeln;
-  writeln ('press any key to continue');
-  Writeln;
-  ch := readkey;
+  AnyKey;
 End;
 
 Procedure Blankstart;
@@ -119,7 +121,6 @@ Begin
           writeln;
         End;
     End;
-
   If Title=2 Then
     Begin
       writeln('                   Attack Board');
@@ -147,16 +148,12 @@ Begin
     End;
 End;
 
-
 Procedure Stupid;
 Begin
   ClrScr;
   writeln;
   Writeln('you are stupid pick shit that works');
-  writeln;
-  writeln('press any key to continue');
-  Error := 1;
-  ch := readkey;
+  AnyKey;
 End;
 
 Procedure XLine;
@@ -202,7 +199,7 @@ Begin
                           DrawBoard(1);
                           writeln;
                           writeln('Bot hit');
-                          ch := readkey;
+                          AnyKey;
                         End;
                       If player[x,y]=1 Then
                         Begin
@@ -212,7 +209,7 @@ Begin
                           DrawBoard(1);
                           writeln;
                           write('Bot miss');
-                          ch := readkey;
+                          AnyKey;
                         End;
                     End;
                 End;
@@ -220,7 +217,6 @@ Begin
         End;
     End;
 End;
-
 
 Procedure BotHitCheck;
 Begin
@@ -236,7 +232,7 @@ Begin
           DrawBoard(1);
           writeln;
           writeln('Bot hit');
-          ch := readkey;
+          AnyKey;
         End;
       If player[x,y]=1 Then
         Begin
@@ -246,15 +242,13 @@ Begin
           DrawBoard(1);
           writeln;
           write('Bot miss');
-          ch := readkey;
+          AnyKey;
         End;
     End;
 End;
 
 
 Procedure Smartbot;
-
-
 
 
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
@@ -296,7 +290,6 @@ End;
 
 Procedure AddBoat(S : integer);
 Begin
-
   Error := 1;
   For k:= 0 To 9 Do
     ClrScr;
@@ -306,38 +299,14 @@ Begin
         DrawBoard(1);
         writeln;
         writeln ('Place dis damn shit, shits as big as ', s);
-        writeln (
-
-
-
-
-
-
-
-
-
-            'Please enter the X coordinate for your shit (use the letter idiot)'
-        );
+        writeln ('Please enter the X coordinate for your shit (use the letter idiot)');
         readln(Letter);
         Xline;
         If Error = 0 Then
           Begin
-            writeln (
-
-
-
-
-
-
-
-
-
-            'Please enter the Y coordinate for your shit (use the number idiot)'
-            );
+            writeln ('Please enter the Y coordinate for your shit (use the number idiot)');
             readln(y);
-            writeln (
-                     'Which way this shit go? D for Down, R for right)'
-            );
+            writeln ('Which way this shit go? D for Down, R for right)');
             readln(Direction);
             If Direction='D' Then Direction := 'd';
             If Direction='R' Then direction := 'r';
@@ -446,7 +415,6 @@ End;
 
 Procedure PlayerTurn;
 Begin
-
   Miss := 0;
   Hit := 0;
   Skip := 1;
@@ -465,9 +433,7 @@ Begin
                   Xline;
                   If Error = 0 Then
                     Begin
-                      writeln ('Please enter the Y coordinate for your attack' )
-                      ;
-
+                      writeln ('Please enter the Y coordinate for your attack' );
                       readln(y);
                       If playerattack[x,y]>1 Then skip := 1
                       Else
@@ -527,66 +493,11 @@ Begin
   ClrScr;
   TextColor(Brown);
   Writeln(' __________         __    __  .__                .__    .__  __');
-  Writeln(
-
-
-
-
-
-
-
-
-
-      '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
-  );
-  Writeln(
-
-
-
-
-
-
-
-
-
-      ' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/'
-  );
-  Writeln(
-
-
-
-
-
-
-
-
-
-      ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
-  );
-  Writeln(
-
-
-
-
-
-
-
-
-
-      ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
-  );
-  Writeln(
-
-
-
-
-
-
-
-
-
-      '        \/      \/                     \/     \/     \/              \/ '
-  );
+  Writeln('\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______');
+  Writeln(' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/');
+  Writeln(' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ ');
+  Writeln(' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >');
+  Writeln('        \/      \/                     \/     \/     \/              \/ ');
   TextColor(white);
   Writeln;
   Writeln('                                  _______');
@@ -620,21 +531,11 @@ Begin
   writeln('        |______|');
   Writeln;
   Writeln;
-  writeln (
-
-'Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. '
-  );
-  writeln;
-  writeln ('  press any key to continue');
-  Writeln;
-  ch := readkey;
+  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. ');
+  AnyKey;
 End;
 
-
-
 Begin
-
-
   Blankstart;
   BotBoat(5);
   BotBoat(4);
@@ -663,6 +564,4 @@ Begin
           checkwin;
         End;
     End;
-
-
 End.
