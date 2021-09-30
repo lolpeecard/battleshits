@@ -1,7 +1,10 @@
 
 Program battleshits;
 
-Uses Crt;
+Uses 
+Crt,
+MMsystem;
+
 
 Var 
   player: array [0..10, 0..10] Of integer;
@@ -533,6 +536,7 @@ End;
 
 Procedure DankerIntro;
 Begin
+  sndPlaySound('intro.wav', snd_Async or snd_NoDefault);
   For i:=0 To 33 Do
     Begin
       clrscr;
@@ -626,12 +630,12 @@ Begin
       TextColor(Yellow);
       writeln('     O/___________/O');
       TextColor(White);
-      delay(20);
+      delay(40-i);
     End;
   TextColor(White);
   Writeln;
   Writeln;
-  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. ');
+  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than kira. ');
   AnyKey;
 End;
 
