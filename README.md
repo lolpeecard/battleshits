@@ -1,5 +1,5 @@
 # battleshits
-out battleshitting kira
+out battleshitting clint
 
                                   _______
                                 /        \___
