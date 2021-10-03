@@ -6,7 +6,8 @@ Program battleshits;
 
 Uses 
 Crt,
-MMsystem;
+MMsystem,
+sysutils;
 
 Var 
   player: array [0..10, 0..10] Of integer;
@@ -602,7 +603,6 @@ Begin
   writeln (
 
 
-
 'Welcome to battleshits, the shit i made in spare time to see if im faster to release than kira. '
   );
   AnyKey;
@@ -610,8 +610,11 @@ End;
 
 Begin
   Blankstart;
-  DankerIntro;
-  ShitStory;
+  If FileExists('debug.txt') = false Then
+    begin
+    DankerIntro;
+    ShitStory;
+    end;
   writeln;
   writeln ('First things first, lets shit back your neighbor, dumbass');
   writeln;
