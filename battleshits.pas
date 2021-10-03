@@ -54,7 +54,7 @@ Begin
       TextColor(white);
       writeln;
       writeln('It is wiped out!');
-      delay(150);
+      sleep(150);
     End;
 End;
 
@@ -81,7 +81,7 @@ Begin
       TextColor(white);
       writeln;
       writeln('It is still there stinking up the yard!');
-      delay(150);
+      sleep(150);
     End;
 End;
 
@@ -131,7 +131,7 @@ Begin
         x := Random(2);
         If x=1 Then shitimation[i,j] := 3
         Else shitimation[i,j] := 1;
-        delay(500);
+        sleep(250);
 
       End;
   TextBackground(Black);
@@ -654,7 +654,7 @@ Begin
       TextColor(Yellow);
       writeln('     O/___________/O');
       TextColor(White);
-      delay(40-i);
+      sleep(40-i);
     End;
   TextColor(White);
   Writeln;
@@ -668,6 +668,7 @@ Begin
 End;
 
 Begin
+  cursoroff;
   Blankstart;
   If FileExists('debug.txt') = false Then
     begin
