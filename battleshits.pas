@@ -120,7 +120,7 @@ Begin
                      Write('@ ');
                      TextColor(White);
                    End
-            Else If bot[i,j]=3 Then write('| X ');
+            Else If player[i,j]=3 Then write('| X ');
           write ('|');
           writeln;
         End;
