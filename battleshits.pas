@@ -8,7 +8,6 @@ Uses
 Crt,
 MMsystem;
 
-
 Var 
   player: array [0..10, 0..10] Of integer;
   playerattack: array [0..10, 0..10] Of integer;
@@ -598,8 +597,8 @@ End;
 
 Begin
   Blankstart;
-  //DankerIntro;
-  //ShitStory;
+  DankerIntro;
+  ShitStory;
   writeln;
   writeln ('First things first, lets shit back your neighbor, dumbass');
   writeln;
