@@ -325,9 +325,10 @@ Begin
           If Direction='R' Then direction := 'r';
           If Direction='r' Then
           begin
-            If x + s < 9 Then
+            If x + s < 11 Then
               Begin
                 Error := 0;
+                s:= s - 1;
                 For L:= 0 To (S) Do
                   Begin
                     //reset error
@@ -335,25 +336,37 @@ Begin
                     If player[x,y] = 2 Then Stupid;
                     x := x - L;
                   End;
-                If error = 0 then For L:= 0 To (S) Do player[x,y] := 2;
+                If error = 0 then For L:= 0 To (S) Do 
+                  begin
+                      x := x + L;
+                      player[x,y] := 2;
+                      x := x - L;
+                  end;
               End;
-          end;  
+          end  
           
-          If Direction='d' Then
+          else If Direction='d' Then
           begin
-            If y + s < 9 Then
+            If y + s < 11 Then
               Begin
                 Error := 0;
+                s:= s - 1;
                 For L:= 0 To (S) Do
                   Begin
                     //reset error
                       y := y + L;
-                    If player[x,y] = 2 Then Stupid;
-                    y := y - L;
+                      If player[x,y] = 2 Then Stupid;
+                      y := y - L;
                   End;
-                If error = 0 then For L:= 0 To (S) Do player[x,y] := 2;
+                If error = 0 then For L:= 0 To (S) Do 
+                begin
+                    y := y + L;
+                  player[x,y] := 2;
+                    y := y - L;
+                end;
               End;
-          end;  
+          end 
+          else stupid; 
         End;
     End;
   BotBoat(s);
@@ -608,7 +621,6 @@ Begin
   Addboat(3);
   Addboat(3);
   Addboat(2);
-
   writeln ('ngl, thats some really good looking turds you got there');
   DrawBoard(1);
   AnyKey;
