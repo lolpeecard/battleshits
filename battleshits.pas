@@ -287,6 +287,16 @@ Begin
         End;
     End;
 End;
+Procedure YInput;
+begin
+     Repeat
+          writeln ('Please enter the Y coordinate(use the number idiot)');
+          {$I-}
+          Readln(y);
+          {$I+}
+     Until IOResult = 0;
+end;
+
 
 Procedure AddBoat(S : integer);
 Begin
@@ -300,17 +310,12 @@ Begin
           writeln;
           writeln ('Place dis damn shit, shits as big as ', s);
           writeln (
-            'Please enter the X coordinate for your shit (use the letter idiot)'
+            'Please enter the X coordinate (use the letter idiot)'
           );
           readln(Letter);
           Xline;
           If Error = 0 Then
-            Begin
-              writeln (
-            'Please enter the Y coordinate for your shit (use the number idiot)'
-              );
-              readln(y);
-            End;
+            yinput;
           If Error = 0 Then
             Begin
               writeln ('Which way this shit go? D for Down, R for right)');
@@ -398,9 +403,7 @@ Begin
                   Xline;
                   If Error = 0 Then
                     Begin
-                      writeln ('Please enter the Y coordinate for your attack' )
-                      ;
-                      readln(y);
+                      yinput;
                       If playerattack[x,y]>1 Then skip := 1
                       Else
                         Begin
@@ -585,10 +588,10 @@ End;
 
 Begin
   Blankstart;
-  // DankerIntro;
-  // ShitStory;
+  DankerIntro;
+  ShitStory;
   writeln;
-  writeln ('First things first, we have to set up your board, dumbass');
+  writeln ('First things first, lets shit back your neighbor, dumbass');
   writeln;
   //Add all the player shits
   Addboat(5);
@@ -596,6 +599,9 @@ Begin
   Addboat(3);
   Addboat(3);
   Addboat(2);
+  
+  writeln ('ngl, thats some really good looking turds you got there');
+  DrawBoard(1);
   AnyKey;
   //it's over 9000
   Repeat
