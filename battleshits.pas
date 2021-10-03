@@ -208,6 +208,7 @@ Procedure Smartbot;
 
 
 
+
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
 Begin
   //resetting variables
@@ -288,14 +289,14 @@ Begin
     End;
 End;
 Procedure YInput;
-begin
-     Repeat
-          writeln ('Please enter the Y coordinate(use the number idiot)');
+Begin
+  Repeat
+    writeln ('Please enter the Y coordinate(use the number idiot)');
           {$I-}
-          Readln(y);
+    Readln(y);
           {$I+}
-     Until IOResult = 0;
-end;
+  Until IOResult = 0;
+End;
 
 
 Procedure AddBoat(S : integer);
@@ -310,7 +311,7 @@ Begin
           writeln;
           writeln ('Place dis damn shit, shits as big as ', s);
           writeln (
-            'Please enter the X coordinate (use the letter idiot)'
+                   'Please enter the X coordinate (use the letter idiot)'
           );
           readln(Letter);
           Xline;
@@ -324,33 +325,36 @@ Begin
           If Direction='D' Then Direction := 'd';
           If Direction='R' Then direction := 'r';
           If Direction='r' Then
+          begin
             If x + s < 9 Then
-              For L:= 0 To (S) Do
-                Begin
-                  //reset error
-                  Error := 0;
-                  x := x + L;
-                  If player[x,y] = 2 Then Stupid
-                  Else player[x,y] := 2;
-                  x := x - L;
-                End
-            Else stupid;
-          If Direction='d' Then
-            If y + s < 9 Then
               Begin
+                Error := 0;
                 For L:= 0 To (S) Do
                   Begin
                     //reset error
-                    Error := 0;
-                    y := y + L;
-                    If player[x,y] = 2 Then
-                      Stupid
-                    Else
-                      player[x,y] := 2;
+                    x := x + L;
+                    If player[x,y] = 2 Then Stupid;
+                    x := x - L;
+                  End;
+                If error = 0 then For L:= 0 To (S) Do player[x,y] := 2;
+              End;
+          end;  
+          
+          If Direction='d' Then
+          begin
+            If y + s < 9 Then
+              Begin
+                Error := 0;
+                For L:= 0 To (S) Do
+                  Begin
+                    //reset error
+                      y := y + L;
+                    If player[x,y] = 2 Then Stupid;
                     y := y - L;
                   End;
-              End
-          Else stupid;
+                If error = 0 then For L:= 0 To (S) Do player[x,y] := 2;
+              End;
+          end;  
         End;
     End;
   BotBoat(s);
@@ -469,9 +473,11 @@ Begin
       Writeln(
 
 
+
       '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
       );
       Writeln(
+
 
 
       ' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/'
@@ -479,14 +485,17 @@ Begin
       Writeln(
 
 
+
       ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
       );
       Writeln(
 
 
+
       ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
       );
       Writeln(
+
 
 
       '        \/      \/                     \/     \/     \/              \/ '
@@ -581,6 +590,7 @@ Begin
   writeln (
 
 
+
 'Welcome to battleshits, the shit i made in spare time to see if im faster to release than kira. '
   );
   AnyKey;
@@ -588,8 +598,8 @@ End;
 
 Begin
   Blankstart;
-  DankerIntro;
-  ShitStory;
+  //DankerIntro;
+  //ShitStory;
   writeln;
   writeln ('First things first, lets shit back your neighbor, dumbass');
   writeln;
@@ -599,7 +609,7 @@ Begin
   Addboat(3);
   Addboat(3);
   Addboat(2);
-  
+
   writeln ('ngl, thats some really good looking turds you got there');
   DrawBoard(1);
   AnyKey;
