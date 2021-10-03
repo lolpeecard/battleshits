@@ -15,7 +15,7 @@ Var
   bot: array [0..10, 0..10] Of integer;
   botattack: array [0..10, 0..10] Of integer;
   shitimation: array [0..10, 0..10] Of integer;
-  b,i,j,x,y,k,l,z: integer;
+  b,i,j,x,y,k,l,z,m: integer;
   Letter,Direction: char;
   hit, miss, skip, wincheck, botwin, playerwin: integer;
   Error: integer;
@@ -27,6 +27,64 @@ Begin
   writeln ('press any key to continue');
   ch := readkey;
 End;
+
+Procedure ShitHit(playerorbot : integer);
+Begin
+  //Player = 1 Bot = 2
+  For m:= 1 To 7 Do
+    Begin
+      Clrscr;
+      If playerorbot=1 Then write('You')
+      Else write('Bot');
+      writeln(' hit a shit!');
+      writeln;
+      TextColor(Brown);
+      If (m < 2) Then writeln('     (   )')
+      Else writeln;
+      If (m < 3) Then writeln('  (   ) (')
+      Else writeln;
+      If (m < 4) Then writeln('   ) _   )')
+      Else writeln;
+      If (m < 5) Then writeln('    ( \_')
+      Else writeln;
+      If (m < 6) Then writeln('  _(_\ \)__')
+      Else writeln;
+      If (m < 7) Then writeln(' (____\___))')
+      Else writeln;
+      TextColor(white);
+      writeln;
+      writeln('It is wiped out!');
+      delay(150);
+    End;
+End;
+
+Procedure ShitMiss(playerorbot : integer);
+Begin
+  //Player = 1 Bot = 2
+  For m:= 1 To 10 Do
+    Begin
+      Clrscr;
+      If playerorbot=1 Then write('You')
+      Else write('Bot');
+      writeln(' misssed the shit!');
+      writeln;
+      TextColor(Brown);
+      If (m mod 2 = 0) Then writeln('     (   )')
+      Else writeln('   (   )');
+      If (m mod 2 = 0 ) Then writeln('  (   ) (')
+      Else writeln('(   ) (');
+      If (m mod 2 = 0 ) Then writeln('   ) _   )')
+      Else writeln(' )   _ )');
+      writeln('    ( \_');
+      writeln('  _(_\ \)__');
+      writeln(' (____\___))');
+      TextColor(white);
+      writeln;
+      writeln('It is still there stinking up the yard!');
+      delay(150);
+    End;
+End;
+
 
 Procedure ShitStory;
 Begin
@@ -179,36 +237,31 @@ Begin
   If botattack[x,y]>1 Then skip := 1
   Else
     Begin
+      //bot hit
       If player[x,y]=2 Then
         Begin
           hit := 1;
           botattack[x,y] := 3;
           player[x,y] := 3;
           skip := 0;
-          DrawBoard(1);
           writeln;
-          writeln('Bot hit');
-          AnyKey;
+          ShitHit(2);
         End;
+      //bot miss
       If player[x,y]=1 Then
         Begin
           miss := 1;
           botattack[x,y] := 4;
           skip := 0;
-          DrawBoard(1);
           writeln;
-          write('Bot miss');
-          AnyKey;
+          ShitMiss(2);
         End;
     End;
+  
 End;
 
 
 Procedure Smartbot;
-
-
-
-
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
 Begin
   //resetting variables
@@ -241,7 +294,10 @@ Begin
             End;
         End;
     End;
-  AnyKey;
+anykey;
+clrscr; 
+drawboard(1);
+anykey;
 End;
 
 Procedure BotBoat(S : integer);
@@ -434,8 +490,8 @@ Begin
                               bot[x,y] := 3;
                               skip := 0;
                               writeln;
-                              writeln('You hit');
-                              ch := readkey;
+                              ShitHit(1);
+                              anykey;
                             End;
                           If bot[x,y]=1 Then
                             Begin
@@ -443,8 +499,8 @@ Begin
                               playerattack[x,y] := 4;
                               skip := 0;
                               writeln;
-                              write('You miss');
-                              ch := readkey;
+                              ShitMiss(1);
+                              anykey;
                             End;
                         End;
                     End;
@@ -633,6 +689,7 @@ Begin
   //it's over 9000
   Repeat
     //Drawbotboard;
+    Clrscr;
     PlayerTurn;
     CheckWin;
     Smartbot;
