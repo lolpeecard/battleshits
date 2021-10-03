@@ -17,7 +17,7 @@ Var
   shitimation: array [0..10, 0..10] Of integer;
   b,i,j,x,y,k,l,z: integer;
   Letter,Direction: char;
-  hit, miss, skip, win: integer;
+  hit, miss, skip, wincheck, botwin, playerwin: integer;
   Error: integer;
   ch: char;
 
@@ -119,7 +119,8 @@ Begin
                      TextColor(Brown);
                      Write('@ ');
                      TextColor(White);
-                   End;
+                   End
+          Else if bot[i,j]=3 Then write('| X ');
           write ('|');
           writeln;
         End;
@@ -171,56 +172,6 @@ Begin
   If (X > -1) And ( X < 10) Then Error := 0;
 End;
 
-Procedure Oldbot;
-//at first this bot is just gonna randomly attack, i may make it smarter later
-Begin
-  //resetting variables
-  Miss := 0;
-  Hit := 0;
-  Skip := 1;
-  For b:=0 To 99 Do
-    Begin
-      If skip = 1 Then
-        Begin
-          If miss = 0 Then
-            Begin
-              If hit = 0 Then
-                Begin
-                  x := Random(10);
-                  y := Random(10);
-                  // 1 = sea 2 = ship 3 = hit 4 = miss
-                  //check to see if bot has already attacked that square
-                  If botattack[x,y]>1 Then skip := 1
-                  Else
-                    Begin
-                      If player[x,y]=2 Then
-                        Begin
-                          hit := 1;
-                          botattack[x,y] := 3;
-                          player[x,y] := 3;
-                          skip := 0;
-                          DrawBoard(1);
-                          writeln;
-                          writeln('Bot hit');
-                          AnyKey;
-                        End;
-                      If player[x,y]=1 Then
-                        Begin
-                          miss := 1;
-                          botattack[x,y] := 4;
-                          skip := 0;
-                          DrawBoard(1);
-                          writeln;
-                          write('Bot miss');
-                          AnyKey;
-                        End;
-                    End;
-                End;
-            End;
-        End;
-    End;
-End;
-
 Procedure BotHitCheck;
 Begin
   If botattack[x,y]>1 Then skip := 1
@@ -266,9 +217,9 @@ Begin
           //this may break by looking for negative in the array
           If player[i,j]=2 Then
             If player[i,(j-1)]=2 Then BotHitcheck
-          Else If player[i,(j+1)]=2 Then BotHitcheck
-          Else If player[(i-1),j]=2 Then BotHitcheck
-          Else If player[(i+1),j]=2 Then BotHitcheck;
+            Else If player[i,(j+1)]=2 Then BotHitcheck
+            Else If player[(i-1),j]=2 Then BotHitcheck
+            Else If player[(i+1),j]=2 Then BotHitcheck;
       If skip = 1 Then
         Begin
           If miss = 0 Then
@@ -284,6 +235,7 @@ Begin
             End;
         End;
     End;
+    AnyKey;
 End;
 
 Procedure BotBoat(S : integer);
@@ -391,25 +343,29 @@ End;
 Procedure Checkwin;
 Begin
   //defaulting to win and it will check if you haven't
-  win := 1;
+  botwin:= 1;
+  playerwin:= 1;
   For i:=0 To 9 Do
     For j:=0 To 9 Do
-      Begin
         If player[i,j] = 2 Then
           Begin
-            win := 0;
+            botwin := 0;
             writeln;
-            If win = 1 Then writeln('lol u are shit');
-          End;
+            End;
+  
+  For i:=0 To 9 Do
+    For j:=0 To 9 Do
         If bot[i,j] = 2 Then
           Begin
-            win := 0;
+            playerwin := 0;
             writeln;
-            If win = 1 Then writeln('lol bot is shit');
           End;
-      End;
-
-End;
+  ClrScr;
+  If botwin = 1 Then writeln('lol u are shit');
+  If playerwin = 1 Then writeln('lol bot is shit');
+  If botwin =1 then wincheck := 1;
+  If playerwin =1 then wincheck := 1;
+  End;
 
 Procedure PlayerTurn;
 Begin
@@ -484,57 +440,6 @@ Begin
         End;
       writeln;
     End;
-End;
-
-Procedure DankIntro;
-Begin
-  ClrScr;
-  TextColor(Brown);
-  writeln;
-  Writeln('__________         __    __  .__                .__    .__  __');
-  Writeln('\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______');
-  Writeln(' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/');
-  Writeln(' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ ');
-  Writeln(' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >');
-  Writeln('        \/      \/                     \/     \/     \/              \/ ');
-  TextColor(white);
-  Writeln;
-  TextColor(Blue);
-  Writeln('                                  _______');
-  Writeln('                                /        \___');
-  Writeln('                               /_________|');
-  TextColor(Yellow);
-  Writeln('                             /         - |');
-  Writeln('                            |____________|');
-  Writeln('                            /        /    /');
-  Writeln('                           /        /    /');
-  Writeln('                          /        /    /');
-  Writeln('                         /        /      -----|');
-  Writeln('                        /        |____________|');
-  Writeln('                 ______/          |');
-  Writeln('                (                 |             ');
-  Writeln('                (_______       ___|');
-  TextColor(Brown);
-  Write('                @');
-  TextColor(Yellow);
-  writeln('       |      /  ');
-  TextColor(Brown);
-  Write('               @');
-  TextColor(Yellow);
-  writeln('        /     /');
-  TextColor(Brown);
-  Write('              @');
-  TextColor(Yellow);
-  writeln('        /     /');
-  TextColor(Brown);
-  Write('            @@');
- TextColor(Yellow);
-  writeln('        |______|');
-  TextColor(White);
-  Writeln;
-  Writeln;
-  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than clint. ');
-  AnyKey;
 End;
 
 Procedure DankerIntro;
@@ -655,15 +560,13 @@ Begin
   Addboat(3);
   Addboat(3);
   Addboat(2);
+  AnyKey;
   //it's over 9000
-  For z := 1 To 9001 Do
-    Begin
-      If win = 0 Then
-        Begin
-          PlayerTurn;
-          CheckWin;
-          Smartbot;
-          checkwin;
-        End;
-    End;
+repeat
+  //Drawbotboard;
+  PlayerTurn;
+  CheckWin;
+  Smartbot;
+  checkwin;
+until wincheck = 1;
 End.
