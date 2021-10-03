@@ -256,8 +256,9 @@ Begin
       If Error = 1 Then
         Begin
           If z=0 Then
-            If x + s < 9 Then
+            If x + s < 11 Then
               Begin
+                s:= s - 1;
                 For L:= 0 To (S) Do
                   Begin
                     //reset error
@@ -266,22 +267,23 @@ Begin
                     If bot[x,y] = 2 Then
                       Begin
                         error := 1;
-                      End;
-                    bot[x,y] := 2;
+                      End
+                    else bot[x,y] := 2;
                     x := x - L;
                   End;
               End;
           If z=1 Then
-            If y + s < 9 Then
+            If y + s < 10 Then
               Begin
+                s:= s - 1;
                 For L:= 0 To (S) Do
                   Begin
                     //reset error
                     Error := 0;
                     y := y + L;
                     If bot[x,y] = 2 Then
-                      error := 1;
-                    bot[x,y] := 2;
+                      error := 1
+                    else bot[x,y] := 2;
                     y := y - L;
                   End;
               End;
@@ -370,6 +372,7 @@ Begin
           else stupid; 
         End;
     End;
+  s:= s + 1;
   BotBoat(s);
 End;
 
