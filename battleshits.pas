@@ -120,7 +120,7 @@ Begin
                      Write('@ ');
                      TextColor(White);
                    End
-          Else if bot[i,j]=3 Then write('| X ');
+            Else If bot[i,j]=3 Then write('| X ');
           write ('|');
           writeln;
         End;
@@ -157,6 +157,7 @@ Begin
   ClrScr;
   writeln;
   Writeln('you are stupid pick shit that works');
+  Error := 1;
   AnyKey;
 End;
 
@@ -169,7 +170,8 @@ Begin
   X := ord(letter);
   X := X - 97;
   // check to see if they picked a letter on the board
-  If (X > -1) And ( X < 10) Then Error := 0;
+  If (X > -1) And ( X < 10) Then Error := 0
+  Else Stupid;
 End;
 
 Procedure BotHitCheck;
@@ -203,6 +205,9 @@ End;
 
 
 Procedure Smartbot;
+
+
+
 //this bot should check to see if it already has a hit and hit the squares around that first before it goes back to normal attack pattern
 Begin
   //resetting variables
@@ -217,9 +222,9 @@ Begin
           //this may break by looking for negative in the array
           If player[i,j]=2 Then
             If player[i,(j-1)]=2 Then BotHitcheck
-            Else If player[i,(j+1)]=2 Then BotHitcheck
-            Else If player[(i-1),j]=2 Then BotHitcheck
-            Else If player[(i+1),j]=2 Then BotHitcheck;
+          Else If player[i,(j+1)]=2 Then BotHitcheck
+          Else If player[(i-1),j]=2 Then BotHitcheck
+          Else If player[(i+1),j]=2 Then BotHitcheck;
       If skip = 1 Then
         Begin
           If miss = 0 Then
@@ -235,7 +240,7 @@ Begin
             End;
         End;
     End;
-    AnyKey;
+  AnyKey;
 End;
 
 Procedure BotBoat(S : integer);
@@ -287,85 +292,91 @@ Procedure AddBoat(S : integer);
 Begin
   Error := 1;
   For k:= 0 To 9 Do
-    ClrScr;
-  Begin
-    If Error = 1 Then
-      Begin
-        DrawBoard(1);
-        writeln;
-        writeln ('Place dis damn shit, shits as big as ', s);
-        writeln ('Please enter the X coordinate for your shit (use the letter idiot)');
-        readln(Letter);
-        Xline;
-        If Error = 0 Then
-          Begin
-            writeln ('Please enter the Y coordinate for your shit (use the number idiot)');
-            readln(y);
-            writeln ('Which way this shit go? D for Down, R for right)');
-            readln(Direction);
-            If Direction='D' Then Direction := 'd';
-            If Direction='R' Then direction := 'r';
-            If Direction='r' Then
-              If x + s < 9 Then
+    Begin
+      ClrScr;
+      If Error = 1 Then
+        Begin
+          DrawBoard(1);
+          writeln;
+          writeln ('Place dis damn shit, shits as big as ', s);
+          writeln (
+            'Please enter the X coordinate for your shit (use the letter idiot)'
+          );
+          readln(Letter);
+          Xline;
+          If Error = 0 Then
+            Begin
+              writeln (
+            'Please enter the Y coordinate for your shit (use the number idiot)'
+              );
+              readln(y);
+            End;
+          If Error = 0 Then
+            Begin
+              writeln ('Which way this shit go? D for Down, R for right)');
+              readln(Direction);
+            End;
+          If Direction='D' Then Direction := 'd';
+          If Direction='R' Then direction := 'r';
+          If Direction='r' Then
+            If x + s < 9 Then
+              For L:= 0 To (S) Do
                 Begin
-                  For L:= 0 To (S) Do
-                    Begin
-                      //reset error
-                      Error := 0;
-                      x := x + L;
-                      If player[x,y] = 2 Then Stupid
-                      Else player[x,y] := 2;
-                      x := x - L;
-                    End;
-                End;
-            If Direction='d' Then
-              If y + s < 9 Then
-                Begin
-                  For L:= 0 To (S) Do
-                    Begin
-                      //reset error
-                      Error := 0;
-                      y := y + L;
-                      If player[x,y] = 2 Then
-                        Stupid
-                      Else
-                        player[x,y] := 2;
-                      y := y - L;
-                    End;
-                End;
-          End;
-      End;
-  End;
-  Error := 1;
+                  //reset error
+                  Error := 0;
+                  x := x + L;
+                  If player[x,y] = 2 Then Stupid
+                  Else player[x,y] := 2;
+                  x := x - L;
+                End
+            Else stupid;
+          If Direction='d' Then
+            If y + s < 9 Then
+              Begin
+                For L:= 0 To (S) Do
+                  Begin
+                    //reset error
+                    Error := 0;
+                    y := y + L;
+                    If player[x,y] = 2 Then
+                      Stupid
+                    Else
+                      player[x,y] := 2;
+                    y := y - L;
+                  End;
+              End
+          Else stupid;
+        End;
+    End;
   BotBoat(s);
 End;
 
 Procedure Checkwin;
 Begin
   //defaulting to win and it will check if you haven't
-  botwin:= 1;
-  playerwin:= 1;
+  botwin := 1;
+  playerwin := 1;
   For i:=0 To 9 Do
     For j:=0 To 9 Do
-        If player[i,j] = 2 Then
-          Begin
-            botwin := 0;
-            writeln;
-            End;
-  
+      If player[i,j] = 2 Then
+        Begin
+          botwin := 0;
+          writeln;
+        End;
+
   For i:=0 To 9 Do
     For j:=0 To 9 Do
-        If bot[i,j] = 2 Then
-          Begin
-            playerwin := 0;
-            writeln;
-          End;
+      If bot[i,j] = 2 Then
+        Begin
+          playerwin := 0;
+          writeln;
+        End;
   ClrScr;
   If botwin = 1 Then writeln('lol u are shit');
   If playerwin = 1 Then writeln('lol bot is shit');
-  If botwin =1 then wincheck := 1;
-  If playerwin =1 then wincheck := 1;
-  End;
+  If botwin =1 Then wincheck := 1;
+  If playerwin =1 Then wincheck := 1;
+End;
 
 Procedure PlayerTurn;
 Begin
@@ -387,7 +398,8 @@ Begin
                   Xline;
                   If Error = 0 Then
                     Begin
-                      writeln ('Please enter the Y coordinate for your attack' );
+                      writeln ('Please enter the Y coordinate for your attack' )
+                      ;
                       readln(y);
                       If playerattack[x,y]>1 Then skip := 1
                       Else
@@ -451,11 +463,31 @@ Begin
       TextColor(Brown);
       writeln;
       Writeln('__________         __    __  .__                .__    .__  __');
-      Writeln('\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______');
-      Writeln(' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/');
-      Writeln(' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ ');
-      Writeln(' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >');
-      Writeln('        \/      \/                     \/     \/     \/              \/ ');           
+      Writeln(
+
+
+      '\______   \_____ _/  |__/  |_|  |   ____   _____|  |__ |__|/  |_  ______'
+      );
+      Writeln(
+
+
+      ' |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___/  |  \|  \   __\/  ___/'
+      );
+      Writeln(
+
+
+      ' |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   Y  \  ||  |  \___ \ '
+      );
+      Writeln(
+
+
+      ' |______  /(____  /__|  |__| |____/\___  >____  >___|  /__||__| /____  >'
+      );
+      Writeln(
+
+
+      '        \/      \/                     \/     \/     \/              \/ '
+      );
       TextColor(Blue);
       For j:=0 To i Do
         write(' ');
@@ -543,14 +575,18 @@ Begin
   TextColor(White);
   Writeln;
   Writeln;
-  writeln ('Welcome to battleshits, the shit i made in spare time to see if im faster to release than kira. ');
+  writeln (
+
+
+'Welcome to battleshits, the shit i made in spare time to see if im faster to release than kira. '
+  );
   AnyKey;
 End;
 
 Begin
   Blankstart;
-  DankerIntro;
-  ShitStory;
+  // DankerIntro;
+  // ShitStory;
   writeln;
   writeln ('First things first, we have to set up your board, dumbass');
   writeln;
@@ -562,11 +598,11 @@ Begin
   Addboat(2);
   AnyKey;
   //it's over 9000
-repeat
-  //Drawbotboard;
-  PlayerTurn;
-  CheckWin;
-  Smartbot;
-  checkwin;
-until wincheck = 1;
+  Repeat
+    //Drawbotboard;
+    PlayerTurn;
+    CheckWin;
+    Smartbot;
+    checkwin;
+  Until wincheck = 1;
 End.
